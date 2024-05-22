@@ -1,23 +1,18 @@
-package controllers
+package controller
 
 import (
 	"encoding/json"
 	"net/http"
+
+	entity "root/entities"
 )
 
-type Artist struct {
-	ID 			int 	`json:"id"`
-	Name 		string 	`json:"name"`
-	Birthdate 	string 	`json:"birthdate"`
-	Origin 		string 	`json:"origin"`
-}
-
 type artistHandler struct {
-	store map[string]Artist
+	store map[string]entity.Artist
 }
 
 func (h *artistHandler) Get(w http.ResponseWriter, r *http.Request) {
-	artists := make([]Artist, len(h.store))
+	artists := make([]entity.Artist, len(h.store))
 
 	i := 0
 	for _, artist := range h.store {
@@ -34,7 +29,7 @@ func (h *artistHandler) Get(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonBytes)
 }
 
-var artistList = map[string]Artist{
+var artistList = map[string]entity.Artist{
 	"id1": {
 		ID: 1,
 		Name: "Van Gogh",
